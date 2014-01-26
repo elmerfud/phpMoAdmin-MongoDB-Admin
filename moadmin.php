@@ -855,7 +855,7 @@ class htmlHelper {
      * Internal storage of the link-prefix and hypertext protocol values
      * @var string
      */
-    protected $_linkPrefix, $_protocol;
+    protected $_linkPrefix;
 
     /**
      * Internal list of included CSS & JS files used by $this->_tagBuilder() to assure that files are not included twice
@@ -873,7 +873,7 @@ class htmlHelper {
      * Sets the protocol (http/https) - this is modified from the original Vork version for phpMoAdmin usage
      */
     public function __construct() {
-        $this->_protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://');
+        //$this->_protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://');
     }
 
     /**
@@ -917,7 +917,7 @@ class htmlHelper {
                 case 'cssSingleton':
                 case 'jqueryTheme':
                     if ($tagType == 'jqueryTheme') {
-                        $arg = $this->_protocol . 'ajax.googleapis.com/ajax/libs/jqueryui/1/themes/'
+                        $arg = '//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/'
                              . str_replace(' ', '-', strtolower($arg)) . '/jquery-ui.css';
                         $tagType = 'css';
                     }
@@ -1234,7 +1234,7 @@ var dom = function(id) {
                 }
             }
         }
-        $url = $this->_protocol . 'www.google.com/jsapi';
+        $url = '//www.google.com/jsapi';
         if (!isset($this->_includedFiles['js'][$url])) { //autoload library
             $this->_includedFiles['js'][$url] = true;
             $url .= '?autoload=' . urlencode(json_encode(array('modules' => array_values($library))));
